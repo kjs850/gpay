@@ -1,9 +1,9 @@
 # GPAY
 
 ### 개발자 : 
-- Boo Jongmin
-- Ko Jaesung
-- Ahn Jaeha   
+- [Boo Jongmin](https://github.com/boojongmin)
+- [Ko Jaesung](https://github.com/kjs850)
+- [Ahn Jaeha](https://github.com/eu81273)   
 
 ### vscode
 

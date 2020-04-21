@@ -4,6 +4,8 @@
 - [Boo Jongmin](https://github.com/boojongmin)
 - [Ko Jaesung](https://github.com/kjs850)
 - [Ahn Jaeha](https://github.com/eu81273)   
+- [Lee Jonguk](https://github.com/jonguk0114)   
+
 
 ### vscode
 

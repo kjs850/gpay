@@ -61,15 +61,7 @@
             text-align: center;
             background-color: #fff;
         }
-        
-        .category .menu_selected {
-            background: #ff5f4a;
-            color: #fff;
-            border-left: 1px solid #915b2f;
-            border-right: 1px solid #915b2f;
-            margin: 0 -1px;
-        }
-        
+
         .category li {
             list-style: none;
             float: left;
@@ -111,46 +103,21 @@
         </div>
 
         <div class="category">
-            <ul>
-                <li onclick="getData('basket')">
-                    <img src="./img/basket.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 식품
+            <ul id="category">
+                <li id="basket" onclick="getData('basket')">
+                    <img src="./img/basket.png" style="display: block; margin: 0 auto 2px; width: 22px; height: 26px;" /> 식품
                 </li>
-                <li onclick="getData('note')">
-                    <img src="./img/note.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 학원
+                <li id="note" onclick="getData('note')">
+                    <img src="./img/note.png" style="display: block; margin: 0 auto 2px; width: 22px; height: 26px;" /> 학원
                 </li>
-                <li onclick="getData('hospital')">
-                    <img src="./img/hospital.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 의료
+                <li id="hospital" onclick="getData('hospital')">
+                    <img src="./img/hospital.png" style="display: block; margin: 0 auto 2px; width: 22px; height: 26px;" /> 의료
                 </li>
-                <li onclick="getData('hair')">
-                    <img src="./img/hair.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 미용원
+                <li id="hair" onclick="getData('hair')">
+                    <img src="./img/hair.png" style="display: block; margin: 0 auto 2px; width: 22px; height: 26px;" /> 미용원
                 </li>
-                <li onclick="getData('restaurant')">
-                    <img src="./img/restaurant.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 식당
+                <li id="restaurant" onclick="getData('restaurant')">
+                    <img src="./img/restaurant.png" style="display: block; margin: 0 auto 2px; width: 22px; height: 26px;" /> 식당
                 </li>
             </ul>
         </div>

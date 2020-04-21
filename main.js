@@ -80,9 +80,24 @@ function removeMarker() {
     infowindow.close();
 }
 
+function changeMenuColor(category) {
+    var menus = ["basket", "note", "hospital", "hair", "restaurant"]
+    $.each(menus, function(i, menu) {
+        if( category == menu){
+            $('#' + menu).css('background','silver');
+        }else{
+            $('#' + menu).css('background','white');
+        }
+    });
+}
+
 function getData(param) {
     console.log(filename, category);
     category = param;
+
+    // 선택된 메뉴 컬러를 변경 합니다.
+    changeMenuColor(category);
+
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
 

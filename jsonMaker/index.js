@@ -99,11 +99,11 @@ async function main() {
                         if (l === "other") continue;
                         await fsPromises.writeFile(
                             `../json/${k}_${l}.json`,
-                            JSON.stringify(r[l])
+                            JSON.stringify(convertDataSingleToArray(r[l]))
                         );
                         console.log(`created ${k}_${l}.json`);
                     } catch (e) {
-                        console.error(err);
+                        console.error(e);
                     }
                 }
             }
@@ -114,5 +114,49 @@ async function main() {
         console.error(e);
     }
 }
+
+
+function convertDataSingleToArray(arr) {
+    const result = {}
+    for (let i = 0; i < arr.length; i++) {
+        const o = arr[i]
+
+        if (o.REFINE_WGS84_LAT == undefined || o.REFINE_WGS84_LOGT == undefined) {
+            console.log('lat, logt undefined', o)
+            continue;
+        }
+
+        const key = o.REFINE_WGS84_LAT.toString() + '/' + o.REFINE_WGS84_LOGT.toString()
+        try {
+            result[key] = [...(result[key] || []), o]
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    const resultArr = []
+    for (let i in result) {
+        const a = result[i]
+        try {
+            const o = {
+                EFINE_WGS84_LAT: a[0].REFINE_WGS84_LAT,
+                REFINE_WGS84_LOGT: a[0].REFINE_WGS84_LOGT,
+            }
+            o.infos = a.map(x => ({
+                CMPNM_NM: x.CMPNM_NM,
+                TELNO: x.TELNO,
+                REFINE_LOTNO_ADDR: x.REFINE_LOTNO_ADDR,
+                INDUTYPE_NM: x.INDUTYPE_NM
+            }))
+            resultArr.push(o)
+        } catch (e) {
+            console.error('REFINE_WGS84_LAT', a)
+        }
+    }
+
+    return resultArr
+
+}
+
 
 main();

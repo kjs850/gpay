@@ -29,8 +29,8 @@
             text-align: center;
             background-color: #fff;
         }
-
-        .location{
+        
+        .location {
             bottom: 10px;
             right: 10px;
             display: block;
@@ -82,13 +82,16 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="부종민, 고재성" />
-    <meta name="description" content="경기화폐-맵 : 경기 지역화폐 사용처를 카테고리 별로 알려주는 서비스입니다." />
+    <meta name="description" content="경기화폐-맵 : 경기 지역화폐 사용처를 카테고리 별로 알려주는
+            서비스입니다." />
     <meta name="keywords" content="경기화폐, 경기페이, 지역화폐" />
     <meta property="og:title" content="경기화폐-맵" />
-    <meta property="og:description" content="경기화폐-맵 : 경기 지역화폐 사용처를 카테고리 별로 알려주는 서비스입니다." />
+    <meta property="og:description" content="경기화폐-맵 : 경기 지역화폐 사용처를 카테고리 별로
+            알려주는 서비스입니다." />
     <meta property="og:image" content="./img/gpay_logo_white.png" />
     <meta property="og:url" content="https://gpay.site/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+            maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
@@ -97,68 +100,57 @@
         <div id="map" style="width: 100%; height: 100vh;"></div>
         <!-- 지도 위에 표시될 마커 카테고리 -->
         <div class="logo">
-            <img src="./img/gpay_logo_white.png" style="display: block; margin: 0 auto 2px; width: 50px; height: 60px;" />
+            <img src="./img/gpay_logo_white.png" style="display: block;
+                    margin: 0 auto 2px; width: 50px; height: 60px;" />
         </div>
         <div class="location">
             <a href="#" onclick="getCurrentLocation()">
-                <img src="./img/location.png" style="
-              display: block;
-              margin: 0 auto 2px;
-              width: 27px;
-              height: 27px;
-            " />
+                <img src="./img/location.png" style="display: block;
+                        margin: 0 auto 2px;
+                        width: 27px;
+                        height: 27px;" />
             </a>
         </div>
 
         <div class="category">
             <ul>
                 <li onclick="getData('basket')">
-                    <img src="./img/basket.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 식품
+                    <img src="./img/basket.png" style="display: block;
+                            margin: 0 auto 2px;
+                            width: 22px;
+                            height: 26px;" /> 식품
                 </li>
                 <li onclick="getData('note')">
-                    <img src="./img/note.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 학원
+                    <img src="./img/note.png" style="display: block;
+                            margin: 0 auto 2px;
+                            width: 22px;
+                            height: 26px;" /> 학원
                 </li>
                 <li onclick="getData('hospital')">
-                    <img src="./img/hospital.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 의료
+                    <img src="./img/hospital.png" style="display: block;
+                            margin: 0 auto 2px;
+                            width: 22px;
+                            height: 26px;" /> 의료
                 </li>
                 <li onclick="getData('hair')">
-                    <img src="./img/hair.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 미용원
+                    <img src="./img/hair.png" style="display: block;
+                            margin: 0 auto 2px;
+                            width: 22px;
+                            height: 26px;" /> 미용원
                 </li>
                 <li onclick="getData('restaurant')">
-                    <img src="./img/restaurant.png" style="
-                display: block;
-                margin: 0 auto 2px;
-                width: 22px;
-                height: 26px;
-              " /> 식당
+                    <img src="./img/restaurant.png" style="display: block;
+                            margin: 0 auto 2px;
+                            width: 22px;
+                            height: 26px;" /> 식당
                 </li>
             </ul>
         </div>
     </div>
     <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
-<!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b6b223d6ec0fc7622b1aaaa2e8ac1f6&libraries=services,clusterer,drawing"></script>-->
+    <!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b6b223d6ec0fc7622b1aaaa2e8ac1f6&libraries=services,clusterer,drawing"></script>-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd7842b1f0e77ad39555e1b61bf917bf&libraries=services,clusterer,drawing"></script>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="./jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="./main.js"></script>
 </body>
 

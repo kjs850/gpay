@@ -1,8 +1,10 @@
 var mapContainer = document.getElementById("map"), // 지도를 표시할 div
     mapOption = {
-        center: new kakao.maps.LatLng(127.04467328158901, 37.276004970303035), // 지도의 중심좌표, 용인시청
+        center: new kakao.maps.LatLng(37.272985, 127.048362), // 지도의 중심좌표
         level: 3, // 지도의 확대 레벨
     };
+
+
 
 var map = new kakao.maps.Map(mapContainer, mapOption);
 
@@ -15,12 +17,25 @@ var infowindow = new kakao.maps.InfoWindow({
 var markers = []; // 마커를 담을 배열입니다
 var gpay_places = [];
 
-getCurrentLocation();
+// getCurrentLocation();
 
 var geocoder = new kakao.maps.services.Geocoder();
 
 var filename = "";
 var category = "restaurant";
+
+
+
+kakao.maps.event.addListener(map, 'center_changed', function() {
+
+    var level = map.getLevel();
+    var latlng = map.getCenter();
+
+    getDisplayedPosition()
+
+});
+
+
 
 function getDisplayedPosition() {
     var p = map.getBounds();
@@ -31,12 +46,21 @@ function getDisplayedPosition() {
         try {
             // 축소를 계속하다보면 특정 레벨에서는 region_2depth_name에 구 정보를 보여주지 않아서 아래의 방어 로직 추가
             // "수원시 권선구" 이렇게 안나오고 "수원시" 이렇게 나옴.
-            console.log(x[0].address.region_1depth_name, x[0].address.region_2depth_name, x[0].address.region_3depth_name)
-            if (x[0].address.region_2depth_name.split(" ").length == 1) return;
+
+            // if (x == undefined || x == undefined) return;
+            let addr = x.address;
+            if (Array.isArray(x)) {
+                addr = x[0].address
+            }
+            console.log(addr)
+                // if (addr.region_2depth_name.split(" ").length == 1) return;
+
             const a =
-                x[0].address.region_1depth_name +
+                addr.region_1depth_name +
                 "도" +
-                x[0].address.region_2depth_name.replace(" ", "") + x[0].address.region_3depth_name;
+                addr.region_2depth_name.replace(" ", "") + addr.region_3depth_name;
+
+            console.log(filename)
 
             if (filename !== a) {
                 filename = a;
@@ -51,25 +75,6 @@ function getDisplayedPosition() {
 function refreshData() {}
 
 getDisplayedPosition();
-
-setInterval(function() {
-    getDisplayedPosition();
-}, 3000);
-
-function getCurrentLocation() {
-    // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
-
-    if (navigator.geolocation) {
-        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-        navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = position.coords.latitude, // 위도
-                lon = position.coords.longitude; // 경도
-            var locPosition = new kakao.maps.LatLng(lat, lon); // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-            // 지도 중심좌표를 접속위치로 변경합니다
-            map.setCenter(locPosition);
-        });
-    }
-}
 
 function removeMarker() {
     for (var i = 0; i < markers.length; i++) {
@@ -133,15 +138,15 @@ function displayPlaces(ypay_place) {
     kakao.maps.event.addListener(marker, "click", function() {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infowindow.setContent(
-            '<div style="padding:5px;font-size:12px;">'
-                + ypay_place.CMPNM_NM
-                + "<br>"
-                + "<a href=tel:" + ypay_place.TELNO + ">" + ypay_place.TELNO + "</a>"
-                + "<br>"
-                + ypay_place.REFINE_LOTNO_ADDR
-                + "<br>"
-                + ypay_place.INDUTYPE_NM
-            + "</div>"
+            '<div style="padding:5px;font-size:12px;">' +
+            ypay_place.CMPNM_NM +
+            "<br>" +
+            "<a href=tel:" + ypay_place.TELNO + ">" + ypay_place.TELNO + "</a>" +
+            "<br>" +
+            ypay_place.REFINE_LOTNO_ADDR +
+            "<br>" +
+            ypay_place.INDUTYPE_NM +
+            "</div>"
         );
         infowindow.open(map, marker);
     });

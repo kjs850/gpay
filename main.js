@@ -5,7 +5,6 @@ var mapContainer = document.getElementById("map"), // 지도를 표시할 div
     };
 
 
-
 var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -114,19 +113,22 @@ function getData(param) {
 
 function savePlaces(item) {
     // console.log("====== savePlaces : " +item.REFINE_WGS84_LAT  + ", " + item.REFINE_WGS84_LOGT + ", " + item.CMPNM_NM);
+    console.log('>>>', item)
     gpay_places.push({
         position: new kakao.maps.LatLng(
             item.REFINE_WGS84_LAT,
             item.REFINE_WGS84_LOGT
         ),
-        CMPNM_NM: item.CMPNM_NM,
-        TELNO: item.TELNO,
-        REFINE_LOTNO_ADDR: item.REFINE_LOTNO_ADDR,
-        INDUTYPE_NM: item.INDUTYPE_NM,
+        items: item.items
+            // CMPNM_NM: item.CMPNM_NM,
+            // TELNO: item.TELNO,
+            // REFINE_LOTNO_ADDR: item.REFINE_LOTNO_ADDR,
+            // INDUTYPE_NM: item.INDUTYPE_NM,
     });
 }
 
 function displayPlaces(ypay_place) {
+
     // 마커를 생성하고 지도에 표시합니다
     var marker = new kakao.maps.Marker({
         position: ypay_place.position,
@@ -137,17 +139,19 @@ function displayPlaces(ypay_place) {
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, "click", function() {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        infowindow.setContent(
-            '<div style="padding:5px;font-size:12px;">' +
-            ypay_place.CMPNM_NM +
-            "<br>" +
-            "<a href=tel:" + ypay_place.TELNO + ">" + ypay_place.TELNO + "</a>" +
-            "<br>" +
-            ypay_place.REFINE_LOTNO_ADDR +
-            "<br>" +
-            ypay_place.INDUTYPE_NM +
-            "</div>"
-        );
+        var html = ''
+        for (var i = 0; i < ypay_place.items.length; i++) {
+            var item = ypay_place.items[i]
+            html += '<div style="padding:5px;font-size:12px;">' + item.CMPNM_NM + "<br>" +
+                "<a href=tel:" + item.TELNO + ">" + item.TELNO + "</a>" +
+                "<br>" +
+                item.REFINE_LOTNO_ADDR +
+                "<br>" +
+                item.INDUTYPE_NM +
+                "</div>"
+        }
+
+        infowindow.setContent(html);
         infowindow.open(map, marker);
     });
 }

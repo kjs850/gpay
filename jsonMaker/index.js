@@ -139,10 +139,10 @@ function convertDataSingleToArray(arr) {
         const a = result[i]
         try {
             const o = {
-                EFINE_WGS84_LAT: a[0].REFINE_WGS84_LAT,
+                REFINE_WGS84_LAT: a[0].REFINE_WGS84_LAT,
                 REFINE_WGS84_LOGT: a[0].REFINE_WGS84_LOGT,
             }
-            o.infos = a.map(x => ({
+            o.items = a.map(x => ({
                 CMPNM_NM: x.CMPNM_NM,
                 TELNO: x.TELNO,
                 REFINE_LOTNO_ADDR: x.REFINE_LOTNO_ADDR,

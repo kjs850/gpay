@@ -1,6 +1,6 @@
 # GPAY
 
-### Boo Jongmon, Ko Jaesung 
+### 개발자 : Boo Jongmin, Ko Jaesung 
 
 ### vscode
 

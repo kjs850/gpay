@@ -1,0 +1,12 @@
+{
+    "SIGUN_NM": "수원시",
+    "CMPNM_NM": "(사)수원시새마을회",
+    "INDUTYPE_NM": "음료식품 - 기타음료식품",
+    "REFINE_ROADNM_ADDR": "경기도 수원시 팔달구 권광로175번길 100",
+    "REFINE_LOTNO_ADDR": "경기도 수원시 팔달구 인계동 1026-8번지",
+    "TELNO": "031-267-0451",
+    "REFINE_ZIPNO": "16490",
+    "REFINE_WGS84_LAT": "37.264763143",
+    "REFINE_WGS84_LOGT": "127.0268946",
+    "DATA_STD_DE": "2019-06-30"
+}

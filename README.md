@@ -1,4 +1,6 @@
-# YMAP
+# GPAY
+
+### Boo Jongmon, Ko Jaesung 
 
 ### vscode
 

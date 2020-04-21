@@ -13,7 +13,7 @@ var infowindow = new kakao.maps.InfoWindow({
 });
 
 var markers = []; // 마커를 담을 배열입니다
-var ypay_places = [];
+var gpay_places = [];
 
 getCurrentLocation();
 
@@ -58,6 +58,7 @@ setInterval(function() {
 
 function getCurrentLocation() {
     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
+
     if (navigator.geolocation) {
         // GeoLocation을 이용해서 접속 위치를 얻어옵니다
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -75,7 +76,7 @@ function removeMarker() {
         markers[i].setMap(null);
     }
     markers = [];
-    ypay_places = [];
+    gpay_places = [];
     infowindow.close();
 }
 
@@ -100,7 +101,7 @@ function getData(param) {
         });
         console.log("finish load data!");
 
-        $.each(ypay_places, function(i, ypay_place) {
+        $.each(gpay_places, function(i, ypay_place) {
             displayPlaces(ypay_place);
         });
     });
@@ -108,7 +109,7 @@ function getData(param) {
 
 function savePlaces(item) {
     // console.log("====== savePlaces : " +item.REFINE_WGS84_LAT  + ", " + item.REFINE_WGS84_LOGT + ", " + item.CMPNM_NM);
-    ypay_places.push({
+    gpay_places.push({
         position: new kakao.maps.LatLng(
             item.REFINE_WGS84_LAT,
             item.REFINE_WGS84_LOGT
@@ -132,19 +133,15 @@ function displayPlaces(ypay_place) {
     kakao.maps.event.addListener(marker, "click", function() {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
         infowindow.setContent(
-            '<div style="padding:5px;font-size:12px;">' +
-            ypay_place.CMPNM_NM +
-            "<br>" +
-            "<a href=tel:" +
-            ypay_place.TELNO +
-            ">" +
-            ypay_place.TELNO +
-            "</a>" +
-            "<br>" +
-            ypay_place.REFINE_LOTNO_ADDR +
-            "<br>" +
-            ypay_place.INDUTYPE_NM +
-            "</div>"
+            '<div style="padding:5px;font-size:12px;">'
+                + ypay_place.CMPNM_NM
+                + "<br>"
+                + "<a href=tel:" + ypay_place.TELNO + ">" + ypay_place.TELNO + "</a>"
+                + "<br>"
+                + ypay_place.REFINE_LOTNO_ADDR
+                + "<br>"
+                + ypay_place.INDUTYPE_NM
+            + "</div>"
         );
         infowindow.open(map, marker);
     });

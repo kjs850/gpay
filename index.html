@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>와이페이 맵</title>
+    <title>경기화폐 맵</title>
     <style>
         #mapwrap {
             position: relative;
@@ -29,18 +29,22 @@
             text-align: center;
             background-color: #fff;
         }
-        
-        .bottom {
-            position: absolute;
-            overflow: hidden;
+
+        .location{
+            bottom: 10px;
             right: 10px;
-            bottom: 20px;
-            z-index: 10;
-            border: 1px solid black;
-            font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
-            font-size: 12px;
+            display: block;
+            width: 30px;
             text-align: center;
+            padding: 5px;
+            z-index: 10;
+            position: fixed;
+            font-size: 12px;
             background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-clip: padding-box;
         }
         
         .category {
@@ -74,46 +78,17 @@
             padding-top: 5px;
             cursor: pointer;
         }
-        
-        .category .ico_comm {
-            display: block;
-            margin: 0 auto 2px;
-            width: 22px;
-            height: 26px;
-            background: url("http://t1.daumcdn.net/localimg/localimages/07/mapapidoc/category.png") no-repeat;
-        }
-        
-        .category .ico_coffee {
-            background-position: -10px 0;
-        }
-        
-        .category .ico_store {
-            background-position: -10px -36px;
-        }
-        
-        .category .ico_carpark {
-            background-position: -10px -72px;
-        }
-        
-        .category .ico_store2 {
-            margin: 0;
-            background: url("/static/img/basket.png") no-repeat;
-        }
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="author" content="고재성" />
-    <meta name="description" content="Y페이-맵 : 수원 지역화폐 사용처를 카테고리 별로 알려주는
-            서비스입니다." />
-    <meta name="keywords" content="경기화폐, 와이페이, 수원" />
-    <meta property="og:title" content="Y페이-맵" />
-    <meta property="og:description" content="Y페이-맵 : 수원 지역화폐 사용처를 카테고리 별로
-            알려주는 서비스입니다." />
-    <meta property="og:image" content="./img/ypay_logo.png" />
-    <meta property="og:url" content="https://ypay.map/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0,
-            maximum-scale=1.0,
-            minimum-scale=1.0, user-scalable=no" />
+    <meta name="author" content="부종민, 고재성" />
+    <meta name="description" content="경기화폐-맵 : 경기 지역화폐 사용처를 카테고리 별로 알려주는 서비스입니다." />
+    <meta name="keywords" content="경기화폐, 경기페이, 지역화폐" />
+    <meta property="og:title" content="경기화폐-맵" />
+    <meta property="og:description" content="경기화폐-맵 : 경기 지역화폐 사용처를 카테고리 별로 알려주는 서비스입니다." />
+    <meta property="og:image" content="./img/gpay_logo_white.png" />
+    <meta property="og:url" content="https://gpay.site/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
 </head>
 
 <body>
@@ -122,9 +97,9 @@
         <div id="map" style="width: 100%; height: 100vh;"></div>
         <!-- 지도 위에 표시될 마커 카테고리 -->
         <div class="logo">
-            <img src="./img/ypay_logo.png" style="display: block; margin: 0 auto 2px; width: 45px; height: 60px;" />
+            <img src="./img/gpay_logo_white.png" style="display: block; margin: 0 auto 2px; width: 50px; height: 60px;" />
         </div>
-        <div class="bottom">
+        <div class="location">
             <a href="#" onclick="getCurrentLocation()">
                 <img src="./img/location.png" style="
               display: block;

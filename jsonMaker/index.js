@@ -90,6 +90,8 @@ async function main() {
                 result[fileName] = {...r };
                 const c = result[fileName][category] || [];
                 result[fileName][category] = [...c, convertData(d)];
+                const t = result[fileName]['total'] || [];
+                result[fileName]['total'] = [...t, convertData(d)];
             }
 
             for (let k in result) {
@@ -101,7 +103,7 @@ async function main() {
                             `../json/${k}_${l}.json`,
                             JSON.stringify(convertDataSingleToArray(r[l]))
                         );
-                        console.log(`created ${k}_${l}.json`);
+                        console.log(`created ${k}_${l}.json - fileSize:`+ getFileSizeInMb(`../json/${k}_${l}.json`) +`MB`);
                     } catch (e) {
                         console.error(e);
                     }
@@ -158,5 +160,14 @@ function convertDataSingleToArray(arr) {
 
 }
 
+function getFileSizeInMb(filename) {
+    var stats = fs.statSync(filename)
+    var fileSizeInBytes = stats["size"]
+    if(fileSizeInBytes > 0){
+        return fileSizeInBytes / 1000000.0
+    }
+    return 0
+
+}
 
 main();

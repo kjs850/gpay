@@ -21,7 +21,7 @@ getCurrentLocation();
 var geocoder = new kakao.maps.services.Geocoder();
 
 var filename = "";
-var category = "restaurant";
+var category = "total";
 
 
 
@@ -97,7 +97,7 @@ function removeMarker() {
 }
 
 function changeMenuColor(category) {
-    var menus = ["basket", "note", "hospital", "hair", "restaurant"]
+    var menus = ["total", "basket", "note", "hospital", "hair", "restaurant"]
     $.each(menus, function(i, menu) {
         if (category == menu) {
             $('#' + menu).css('background', 'silver');

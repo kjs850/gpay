@@ -16,7 +16,7 @@ var infowindow = new kakao.maps.InfoWindow({
 var markers = []; // 마커를 담을 배열입니다
 var gpay_places = [];
 
-// getCurrentLocation();
+getCurrentLocation();
 
 var geocoder = new kakao.maps.services.Geocoder();
 

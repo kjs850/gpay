@@ -5,8 +5,8 @@ fsPromises = fs.promises;
 async function main() {
     try {
         const files = fs.readdirSync('input')
-        fs.rmdirSync("../json", { recursive: true });
-        fs.mkdirSync("../json");
+        // fs.rmdirSync("../json", { recursive: true });
+        // fs.mkdirSync("../json");
         for (let i in files) {
             const json = await fsPromises.readFile("input/" + files[i], "utf8");
             const originalData = JSON.parse(json);

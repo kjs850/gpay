@@ -21,6 +21,7 @@ var gpay_places = [];
 var geocoder = new kakao.maps.services.Geocoder();
 
 var filename = "";
+var category = "total";
 
 kakao.maps.event.addListener(map, 'center_changed', function() {
 
@@ -63,7 +64,7 @@ function getDisplayedPosition() {
                 addr = x[0].address
             }
             // if (addr.region_2depth_name.split(" ").length == 1) return;
-            console.log(addr)
+            // console.log(addr)
 
             const a =
                 addr.region_1depth_name +
@@ -71,10 +72,10 @@ function getDisplayedPosition() {
                 addr.region_2depth_name.replace(" ", "") + addr.region_3depth_name;
 
 
-            console.log(filename)
+            console.log('filename', filename, a)
             if (filename !== a) {
                 filename = a;
-                getData();
+                getData(category);
             }
         } catch (e) {
             console.log(e)
@@ -95,15 +96,20 @@ function removeMarker() {
     infowindow.close();
 }
 
+function getData(param) {
+    category = param;
 
-function getData() {
+    // 선택된 메뉴 컬러를 변경 합니다.
+    changeMenuColor();
 
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
 
     var jsonLocation = "./json/basket.json";
 
-    jsonLocation = "./json/" + filename + ".json";
+    if (category != "") {
+        jsonLocation = "./json/" + filename + "_" + category + ".json";
+    }
 
     $.getJSON(jsonLocation, function(data) {
         $.each(data, function(i, item) {
@@ -124,15 +130,32 @@ function savePlaces(item) {
             item.lat,
             item.long
         ),
+        imageIndex: item.imageIndex,
         items: item.items
     });
 }
 
 function displayPlaces(ypay_place) {
 
+
+    console.log(ypay_place)
+
+    var markerImageSrc = "http://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_theme.png";
+
+    var imageSize = new kakao.maps.Size(30, 30)
+    var imageOptions = {
+        spriteOrigin: new kakao.maps.Point(0, ypay_place.imageIndex * 40),
+        spriteSize: new kakao.maps.Size(30, 910)
+    };
+
+    var markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);
+    // var marker = createMarker(coffeePositions[i], markerImage);  
+
+
     // 마커를 생성하고 지도에 표시합니다
     var marker = new kakao.maps.Marker({
         position: ypay_place.position,
+        image: markerImage
     });
     marker.setMap(map);
     markers.push(marker);
@@ -157,12 +180,24 @@ function displayPlaces(ypay_place) {
                 "<br>" +
                 item.addr +
                 "<br>" +
-                item.category
+                item.indutype
         }
 
         html += "</div>"
 
         infowindow.setContent(html);
         infowindow.open(map, marker);
+    });
+}
+
+
+function changeMenuColor() {
+    var menus = ["total", "restaurant", 'coffee', 'oil', 'mart', 'car', 'hotel', 'medical', 'study', 'food', 'leisure', 'beauty', 'other']
+    $.each(menus, function(i, menu) {
+        if (category == menu) {
+            $('#' + menu).css('background', 'silver');
+        } else {
+            $('#' + menu).css('background', 'white');
+        }
     });
 }

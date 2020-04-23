@@ -52,8 +52,8 @@
             overflow: hidden;
             top: 10px;
             left: 60px;
-            width: 250px;
-            height: 50px;
+            width: 360px;
+            height: 60px;
             z-index: 10;
             border: 1px solid black;
             font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
@@ -66,7 +66,7 @@
             list-style: none;
             float: left;
             width: 50px;
-            height: 45px;
+            height: 25px;
             padding-top: 5px;
             cursor: pointer;
         }
@@ -111,6 +111,48 @@
                         height: 27px;" />
             </a>
         </div>
+
+        <div class="category">
+            <ul id="category">
+                <li id="total" onclick="getData('total')">
+                    전체
+                </li>
+                <li id="restaurant" onclick="getData('restaurant')">
+                    음식
+                </li>
+                <li id="oil" onclick="getData('oil')">
+                    연료
+                </li>
+                <li id="mart" onclick="getData('mart')">
+                    마트
+                </li>
+                <li id="car" onclick="getData('car')">
+                    자동차
+                </li>
+                <li id="hotel" onclick="getData('hotel')">
+                    숙박
+                </li>
+                <li id="medical" onclick="getData('medical')">
+                    의료
+                </li>
+                <li id="study" onclick="getData('study')">
+                    학원
+                </li>
+                <li id="food" onclick="getData('food')">
+                    음료식품
+                </li>
+                <li id="leisure" onclick="getData('leisure')">
+                    레저
+                </li>
+                <li id="beauty" onclick="getData('beauty')">
+                    미용
+                </li>
+                <li id="other" onclick="getData('other')">
+                    미분류
+                </li>
+            </ul>
+        </div>
+
     </div>
     <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
     <!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b6b223d6ec0fc7622b1aaaa2e8ac1f6&libraries=services,clusterer,drawing"></script>-->

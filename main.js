@@ -16,11 +16,12 @@ var infowindow = new kakao.maps.InfoWindow({
 var markers = []; // 마커를 담을 배열입니다
 var gpay_places = [];
 
-// getCurrentLocation();
+getCurrentLocation();
 
 var geocoder = new kakao.maps.services.Geocoder();
 
 var filename = "";
+var category = "total";
 
 kakao.maps.event.addListener(map, 'center_changed', function() {
 
@@ -74,7 +75,7 @@ function getDisplayedPosition() {
             console.log(filename)
             if (filename !== a) {
                 filename = a;
-                getData();
+                getData(category);
             }
         } catch (e) {
             console.log(e)
@@ -82,7 +83,6 @@ function getDisplayedPosition() {
     });
 }
 
-function refreshData() {}
 
 getDisplayedPosition();
 
@@ -96,14 +96,31 @@ function removeMarker() {
 }
 
 
-function getData() {
+function changeMenuColor(category) {
+    var menus = ["total", "basket", "note", "hospital", "hair", "restaurant"]
+    $.each(menus, function(i, menu) {
+        if (category == menu) {
+            $('#' + menu).css('background', 'silver');
+        } else {
+            $('#' + menu).css('background', 'white');
+        }
+    });
+}
+
+function getData(param) {
+    category = param;
+
+    // 선택된 메뉴 컬러를 변경 합니다.
+    changeMenuColor(category);
 
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
 
     var jsonLocation = "./json/basket.json";
 
-    jsonLocation = "./json/" + filename + ".json";
+    if (category != "") {
+        jsonLocation = "./json/" + filename + "_" + category + ".json";
+    }
 
     $.getJSON(jsonLocation, function(data) {
         $.each(data, function(i, item) {

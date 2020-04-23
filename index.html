@@ -52,7 +52,7 @@
             overflow: hidden;
             top: 10px;
             left: 60px;
-            width: 250px;
+            width: 300px;
             height: 50px;
             z-index: 10;
             border: 1px solid black;
@@ -110,6 +110,34 @@
                         width: 27px;
                         height: 27px;" />
             </a>
+        </div>
+        <div class="category">
+            <ul id="category">
+                <li id="total" onclick="getData('total')">
+                    <img src="./img/total.png" style="display: block;
+                            margin: 0 auto 2px; width: 22px; height: 26px;" /> 전체
+                </li>
+                <li id="basket" onclick="getData('basket')">
+                    <img src="./img/basket.png" style="display: block;
+                            margin: 0 auto 2px; width: 22px; height: 26px;" /> 식품
+                </li>
+                <li id="note" onclick="getData('note')">
+                    <img src="./img/note.png" style="display: block; margin:
+                            0 auto 2px; width: 22px; height: 26px;" /> 학원
+                </li>
+                <li id="hospital" onclick="getData('hospital')">
+                    <img src="./img/hospital.png" style="display: block;
+                            margin: 0 auto 2px; width: 22px; height: 26px;" /> 의료
+                </li>
+                <li id="hair" onclick="getData('hair')">
+                    <img src="./img/hair.png" style="display: block; margin:
+                            0 auto 2px; width: 22px; height: 26px;" /> 미용원
+                </li>
+                <li id="restaurant" onclick="getData('restaurant')">
+                    <img src="./img/restaurant.png" style="display: block;
+                            margin: 0 auto 2px; width: 22px; height: 26px;" /> 식당
+                </li>
+            </ul>
         </div>
     </div>
     <!-- services와 clusterer, drawing 라이브러리 불러오기 -->

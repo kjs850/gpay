@@ -6,9 +6,10 @@ const result = {};
 async function main() {
     try {
         const files = fs.readdirSync('input')
-        fs.rmdirSync("../json", { recursive: true });
-        fs.mkdirSync("../json");
+        // fs.rmdirSync("../json", { recursive: true });
+        // fs.mkdirSync("../json");
         for (let i in files) {
+            console.log("input/" + files[i])
             const json = await fsPromises.readFile("input/" + files[i], "utf8");
             const originalData = JSON.parse(json);
             const datas = originalData.filter(
@@ -41,11 +42,8 @@ async function main() {
             var report = {};
 
             function getURLencodedAddr(x) {
-                let arr = (x.addr || "").split(" ");
+                let arr = (x.REFINE_LOTNO_ADDR || "").split(" ");
 
-                // if (arr.length == 1) {
-                //     arr = (x.REFINE_ROADNM_ADDR || "").split(" ");
-                // }
                 if (arr.length == 0) return undefined;
 
                 // if (!arr[0]) console.log(x);
@@ -80,29 +78,32 @@ async function main() {
             }
 
             for (let i = 0; i < datas.length; i++) {
-                const d = convertData(datas[i]);
+                const d = datas[i];
+                const category = getCategory(d);
                 const fileName = getURLencodedAddr(d);
-
                 if (fileName === undefined) continue;
 
-                const r = result[fileName] || [];
-                r.push(d)
-                result[fileName] = r;
-                // const c = result[fileName] || [];
-                // result[fileName] = [...c, convertData(d)];
+                const r = result[fileName] || {};
+                result[fileName] = {...r };
+                const c = result[fileName][category] || [];
+                result[fileName][category] = [...c, convertData(d)];
+                const t = result[fileName]['total'] || [];
+                result[fileName]['total'] = [...t, convertData(d)];
             }
 
             for (let k in result) {
                 const r = result[k];
-                try {
-                    console.log(`created ${k}.json`)
-                    await fsPromises.writeFile(
-                        `../json/${k}.json`,
-                        JSON.stringify(convertDataSingleToArray(r)));
-
-                    console.log(`created ${k}.json`);
-                } catch (e) {
-                    console.error(e);
+                for (let l in r) {
+                    try {
+                        if (l === "other") continue;
+                        await fsPromises.writeFile(
+                            `../json/${k}_${l}.json`,
+                            JSON.stringify(convertDataSingleToArray(r[l]))
+                        );
+                        console.log(`created ${k}_${l}.json`);
+                    } catch (e) {
+                        console.error(e);
+                    }
                 }
             }
 

@@ -6,10 +6,9 @@ const result = {};
 async function main() {
     try {
         const files = fs.readdirSync('input')
-            // fs.rmdirSync("../json", { recursive: true });
-            // fs.mkdirSync("../json");
+        fs.rmdirSync("../json", { recursive: true });
+        fs.mkdirSync("../json");
         for (let i in files) {
-            console.log("input/" + files[i])
             const json = await fsPromises.readFile("input/" + files[i], "utf8");
             const originalData = JSON.parse(json);
             const datas = originalData.filter(
@@ -42,14 +41,14 @@ async function main() {
             var report = {};
 
             function getURLencodedAddr(x) {
-                let arr = (x.REFINE_LOTNO_ADDR || "").split(" ");
+                let arr = (x.addr || "").split(" ");
 
                 // if (arr.length == 1) {
                 //     arr = (x.REFINE_ROADNM_ADDR || "").split(" ");
                 // }
                 if (arr.length == 0) return undefined;
 
-                if (!arr[0]) console.log(x);
+                // if (!arr[0]) console.log(x);
                 let key = ''
                 if (arr[2] === undefined) return undefined;
 
@@ -60,7 +59,7 @@ async function main() {
                 }
 
                 if (key.length !== key.replace(/\d+/, '').length || key.length !== key.replace(/\(/, '').length) {
-                    console.log(key)
+                    // console.log(key)
                     return undefined;
                 }
 
@@ -71,40 +70,39 @@ async function main() {
 
             function convertData(x) {
                 return {
-                    REFINE_WGS84_LAT: x.REFINE_WGS84_LAT,
-                    REFINE_WGS84_LOGT: x.REFINE_WGS84_LOGT,
-                    CMPNM_NM: x.CMPNM_NM,
-                    TELNO: x.TELNO,
-                    REFINE_LOTNO_ADDR: x.REFINE_LOTNO_ADDR,
-                    INDUTYPE_NM: x.INDUTYPE_NM,
+                    lat: x.REFINE_WGS84_LAT,
+                    long: x.REFINE_WGS84_LOGT,
+                    name: x.CMPNM_NM,
+                    tel: x.TELNO,
+                    addr: x.REFINE_LOTNO_ADDR,
+                    category: x.INDUTYPE_NM,
                 };
             }
 
             for (let i = 0; i < datas.length; i++) {
-                const d = datas[i];
-                const category = getCategory(d);
+                const d = convertData(datas[i]);
                 const fileName = getURLencodedAddr(d);
+
                 if (fileName === undefined) continue;
 
-                const r = result[fileName] || {};
-                result[fileName] = {...r };
-                const c = result[fileName][category] || [];
-                result[fileName][category] = [...c, convertData(d)];
+                const r = result[fileName] || [];
+                r.push(d)
+                result[fileName] = r;
+                // const c = result[fileName] || [];
+                // result[fileName] = [...c, convertData(d)];
             }
 
             for (let k in result) {
                 const r = result[k];
-                for (let l in r) {
-                    try {
-                        if (l === "other") continue;
-                        await fsPromises.writeFile(
-                            `../json/${k}_${l}.json`,
-                            JSON.stringify(convertDataSingleToArray(r[l]))
-                        );
-                        console.log(`created ${k}_${l}.json`);
-                    } catch (e) {
-                        console.error(e);
-                    }
+                try {
+                    console.log(`created ${k}.json`)
+                    await fsPromises.writeFile(
+                        `../json/${k}.json`,
+                        JSON.stringify(convertDataSingleToArray(r)));
+
+                    console.log(`created ${k}.json`);
+                } catch (e) {
+                    console.error(e);
                 }
             }
 
@@ -121,12 +119,12 @@ function convertDataSingleToArray(arr) {
     for (let i = 0; i < arr.length; i++) {
         const o = arr[i]
 
-        if (o.REFINE_WGS84_LAT == undefined || o.REFINE_WGS84_LOGT == undefined) {
+        if (o.lat == undefined || o.long == undefined) {
             console.log('lat, logt undefined', o)
             continue;
         }
 
-        const key = o.REFINE_WGS84_LAT.toString() + '/' + o.REFINE_WGS84_LOGT.toString()
+        const key = o.lat.toString() + '/' + o.long.toString()
         try {
             result[key] = [...(result[key] || []), o]
         } catch (e) {
@@ -139,14 +137,14 @@ function convertDataSingleToArray(arr) {
         const a = result[i]
         try {
             const o = {
-                REFINE_WGS84_LAT: a[0].REFINE_WGS84_LAT,
-                REFINE_WGS84_LOGT: a[0].REFINE_WGS84_LOGT,
+                lat: a[0].lat,
+                long: a[0].long,
             }
             o.items = a.map(x => ({
-                CMPNM_NM: x.CMPNM_NM,
-                TELNO: x.TELNO,
-                REFINE_LOTNO_ADDR: x.REFINE_LOTNO_ADDR,
-                INDUTYPE_NM: x.INDUTYPE_NM
+                name: x.name,
+                tel: x.tel,
+                addr: x.addr,
+                category: x.category
             }))
             resultArr.push(o)
         } catch (e) {

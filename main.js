@@ -16,14 +16,11 @@ var infowindow = new kakao.maps.InfoWindow({
 var markers = []; // 마커를 담을 배열입니다
 var gpay_places = [];
 
-getCurrentLocation();
+// getCurrentLocation();
 
 var geocoder = new kakao.maps.services.Geocoder();
 
 var filename = "";
-var category = "restaurant";
-
-
 
 kakao.maps.event.addListener(map, 'center_changed', function() {
 
@@ -66,6 +63,7 @@ function getDisplayedPosition() {
                 addr = x[0].address
             }
             // if (addr.region_2depth_name.split(" ").length == 1) return;
+            console.log(addr)
 
             const a =
                 addr.region_1depth_name +
@@ -73,9 +71,10 @@ function getDisplayedPosition() {
                 addr.region_2depth_name.replace(" ", "") + addr.region_3depth_name;
 
 
+            console.log(filename)
             if (filename !== a) {
                 filename = a;
-                getData(category);
+                getData();
             }
         } catch (e) {
             console.log(e)
@@ -96,35 +95,19 @@ function removeMarker() {
     infowindow.close();
 }
 
-function changeMenuColor(category) {
-    var menus = ["basket", "note", "hospital", "hair", "restaurant"]
-    $.each(menus, function(i, menu) {
-        if (category == menu) {
-            $('#' + menu).css('background', 'silver');
-        } else {
-            $('#' + menu).css('background', 'white');
-        }
-    });
-}
 
-function getData(param) {
-    category = param;
-
-    // 선택된 메뉴 컬러를 변경 합니다.
-    changeMenuColor(category);
+function getData() {
 
     // 지도에 표시되고 있는 마커를 제거합니다
     removeMarker();
 
     var jsonLocation = "./json/basket.json";
 
-    if (category != "") {
-        jsonLocation = "./json/" + filename + "_" + category + ".json";
-    }
+    jsonLocation = "./json/" + filename + ".json";
 
     $.getJSON(jsonLocation, function(data) {
         $.each(data, function(i, item) {
-            if (item.REFINE_WGS84_LAT != "" && item.REFINE_WGS84_LOGT != "") {
+            if (item.lat != "" && item.long != "") {
                 savePlaces(item);
             }
         });
@@ -138,14 +121,10 @@ function getData(param) {
 function savePlaces(item) {
     gpay_places.push({
         position: new kakao.maps.LatLng(
-            item.REFINE_WGS84_LAT,
-            item.REFINE_WGS84_LOGT
+            item.lat,
+            item.long
         ),
         items: item.items
-            // CMPNM_NM: item.CMPNM_NM,
-            // TELNO: item.TELNO,
-            // REFINE_LOTNO_ADDR: item.REFINE_LOTNO_ADDR,
-            // INDUTYPE_NM: item.INDUTYPE_NM,
     });
 }
 
@@ -161,17 +140,27 @@ function displayPlaces(ypay_place) {
     // 마커에 클릭이벤트를 등록합니다
     kakao.maps.event.addListener(marker, "click", function() {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
-        var html = ''
-        for (var i = 0; i < ypay_place.items.length; i++) {
-            var item = ypay_place.items[i]
-            html += '<div style="padding:5px;font-size:12px;">' + item.CMPNM_NM + "<br>" +
-                "<a href=tel:" + item.TELNO + ">" + item.TELNO + "</a>" +
-                "<br>" +
-                item.REFINE_LOTNO_ADDR +
-                "<br>" +
-                item.INDUTYPE_NM +
-                "</div>"
+
+        var height = 100
+        if (ypay_place.items.length == 2) {
+            height = 200
+        } else if (ypay_place.items.length > 2) {
+            height = 300
         }
+        var html = '<div style="padding:5px;font-size:12px;overflow-y: scroll;height:' + height + 'px;">';
+        for (var i = 0; i < ypay_place.items.length; i++) {
+            if (i > 0) html += "<hr>"
+
+            var item = ypay_place.items[i]
+            html += item.name + "<br>" +
+                "<a href=tel:" + item.tel + ">" + item.tel + "</a>" +
+                "<br>" +
+                item.addr +
+                "<br>" +
+                item.category
+        }
+
+        html += "</div>"
 
         infowindow.setContent(html);
         infowindow.open(map, marker);

@@ -46,21 +46,7 @@
             border: 1px solid rgba(0, 0, 0, 0.2);
             background-clip: padding-box;
         }
-        
-        .category {
-            position: absolute;
-            overflow: hidden;
-            top: 10px;
-            left: 60px;
-            width: 360px;
-            height: 60px;
-            z-index: 10;
-            border: 1px solid black;
-            font-family: "Malgun Gothic", "맑은 고딕", sans-serif;
-            font-size: 12px;
-            text-align: center;
-            background-color: #fff;
-        }
+
         
         .category li {
             list-style: none;
@@ -70,6 +56,37 @@
             padding-top: 5px;
             cursor: pointer;
         }
+
+
+        .category {
+            left: 7px;
+            top: 80px;
+            width: 50px;
+            height: 200px;
+            display: block;
+            text-align: center;
+            padding: 10px 0px 10px 0px;
+            z-index: 1001;
+            position: absolute;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-clip: padding-box;
+            overflow-y: scroll;
+        }
+
+        .category_item {
+            padding: 3px 3px 3px 3px;
+            background-color: white;
+            width: 100%;
+            min-height: 25px;
+            border: 0;
+            cursor: pointer;
+        }
+
+
+
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -113,44 +130,42 @@
         </div>
 
         <div class="category">
-            <ul id="category">
-                <li id="total" onclick="getData('total')">
-                    전체
-                </li>
-                <li id="restaurant" onclick="getData('restaurant')">
-                    음식
-                </li>
-                <li id="oil" onclick="getData('oil')">
-                    연료
-                </li>
-                <li id="mart" onclick="getData('mart')">
-                    마트
-                </li>
-                <li id="car" onclick="getData('car')">
-                    자동차
-                </li>
-                <li id="hotel" onclick="getData('hotel')">
-                    숙박
-                </li>
-                <li id="medical" onclick="getData('medical')">
-                    의료
-                </li>
-                <li id="study" onclick="getData('study')">
-                    학원
-                </li>
-                <li id="food" onclick="getData('food')">
-                    음료식품
-                </li>
-                <li id="leisure" onclick="getData('leisure')">
-                    레저
-                </li>
-                <li id="beauty" onclick="getData('beauty')">
-                    미용
-                </li>
-                <li id="other" onclick="getData('other')">
-                    미분류
-                </li>
-            </ul>
+            <button class="category_item" id="total" onclick="getData('total')">
+                전체
+            </button>
+            <button class="category_item" id="restaurant" onclick="getData('restaurant')">
+                음식
+            </button>
+            <button class="category_item" id="oil" onclick="getData('oil')">
+                연료
+            </button>
+            <button class="category_item" id="mart" onclick="getData('mart')">
+                마트
+            </button>
+            <button class="category_item" id="car" onclick="getData('car')">
+                자동차
+            </button>
+            <button class="category_item" id="hotel" onclick="getData('hotel')">
+                숙박
+            </button>
+            <button class="category_item" id="medical" onclick="getData('medical')">
+                의료
+            </button>
+            <button class="category_item" id="study" onclick="getData('study')">
+                학원
+            </button>
+            <button class="category_item" id="food" onclick="getData('food')">
+                음료식품
+            </button>
+            <button class="category_item" id="leisure" onclick="getData('leisure')">
+                레저
+            </button>
+            <button class="category_item" id="beauty" onclick="getData('beauty')">
+                미용
+            </button>
+            <button class="category_item" id="other" onclick="getData('other')">
+                미분류
+            </button>
         </div>
 
     </div>

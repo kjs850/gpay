@@ -1,7 +1,10 @@
-# GPAY
+# GPAY ( 경기지역화폐 가맹점 찾기)
 
-### 개발자 :
+### 사이트 
+- https://g-pay.info 
+- 경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 가맹점을 카테고리 별로 알려드립니다
 
+### 개발자
 - [Boo Jongmin](https://github.com/boojongmin)
 - [Ko Jaesung](https://github.com/kjs850)
 - [Ahn Jaeha](https://github.com/eu81273)

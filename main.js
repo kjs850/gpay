@@ -28,7 +28,7 @@ kakao.maps.event.addListener(map, 'center_changed', function() {
     var level = map.getLevel();
     var latlng = map.getCenter();
 
-    getDisplayedPosition()
+    debouncedGetDisplayedPosition()
 
 });
 
@@ -82,6 +82,15 @@ function getDisplayedPosition() {
         }
     });
 }
+
+function debounce (f, delay) {
+    var timeout = null;
+    return function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(f, delay);
+    };
+}
+var debouncedGetDisplayedPosition = debounce(getDisplayedPosition, 500);
 
 function refreshData() {}
 

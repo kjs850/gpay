@@ -140,7 +140,7 @@ function displayPlaces(ypay_place) {
 
     console.log(ypay_place)
 
-    var markerImageSrc = "//t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_theme.png";
+    var markerImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_theme.png";
 
     var imageSize = new kakao.maps.Size(30, 30)
     var imageOptions = {

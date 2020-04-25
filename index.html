@@ -112,6 +112,34 @@
             text-align: center;
             box-shadow: 3px 3px 3px #fc9403;
         }
+
+        .loading {
+            background: rgba(0, 0, 0, .5) no-repeat;
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 999;
+            display: none;
+        }
+        .spinner {
+            display: inline-block;
+            height: 28px;
+            width: 28px;
+            position: absolute;
+            top: calc(50% - 14px);
+            left: calc(50% - 14px);
+            animation: rotate 0.8s infinite linear;
+            border: 4px solid #fff;
+            border-right-color: transparent;
+            border-radius: 50%;
+        }
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -141,6 +169,10 @@
 <body>
     <div class="content">
         경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 사용처를 카테고리 별로 알려드립니다. 경기 지역화폐 마트, 경기지역화폐 사용처, 경기지역화폐 가맹점 찾기, 경기 지역화폐 수원가맹점 경기 지역화폐 용인가맹점, 경기지역화폐 가맹점 조회 경기지역화폐 결제매장검색, 경기지역화폐 홈페이지 경기지역화폐 결제매장검색, 성남 지역 화폐 사용처
+    </div>
+
+    <div id="loading" class="loading">
+        <div class="spinner"></div>
     </div>
 
     <div id="mapwrap">

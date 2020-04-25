@@ -15,6 +15,8 @@ var infowindow = new kakao.maps.InfoWindow({
 var markers = []; // 마커를 담을 배열입니다
 var gpay_places = [];
 
+var $loading = $('.loading');
+
 var commentEl = document.getElementById("comment");
 
 getCurrentLocation();
@@ -112,6 +114,8 @@ function removeMarker() {
 }
 
 function getData(param) {
+    $loading.show();
+
     category = param;
 
     // 선택된 메뉴 컬러를 변경 합니다.
@@ -126,17 +130,31 @@ function getData(param) {
         jsonLocation = "./json/" + filename + "_" + category + ".json";
     }
 
-    $.getJSON(jsonLocation, function(data) {
-        $.each(data, function(i, item) {
-            if (item.lat != "" && item.long != "") {
-                savePlaces(item);
-            }
-        });
+    $.ajax({
+        url: jsonLocation,
+        type: "GET",
+        // data: loginData,
+        statusCode: {
+            200 : function (data) {
+                $.each(data, function(i, item) {
+                    if (item.lat != "" && item.long != "") {
+                        savePlaces(item);
+                    }
+                });
 
-        $.each(gpay_places, function(i, ypay_place) {
-            displayPlaces(ypay_place);
-        });
+                $.each(gpay_places, function(i, ypay_place) {
+                    displayPlaces(ypay_place);
+                });
+            }
+        }
+    }).done(function(data) {
+        console.log('성공');
+        $loading.hide();
+    }).fail(function( jqXHR, textStatus ) {
+        console.log('실패:' + jqXHR.status);
+        $loading.hide();
     });
+
 }
 
 function savePlaces(item) {

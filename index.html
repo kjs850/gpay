@@ -46,7 +46,7 @@
             border: 1px solid rgba(0, 0, 0, 0.2);
             background-clip: padding-box;
         }
-
+        
         .content {
             bottom: 10px;
             left: 7px;
@@ -63,7 +63,6 @@
             border: 1px solid rgba(0, 0, 0, 0.2);
             background-clip: padding-box;
         }
-
         
         .category li {
             list-style: none;
@@ -73,8 +72,7 @@
             padding-top: 5px;
             cursor: pointer;
         }
-
-
+        
         .category {
             left: 7px;
             top: 80px;
@@ -92,7 +90,7 @@
             background-clip: padding-box;
             /*overflow-y: scroll;*/
         }
-
+        
         .category_item {
             padding: 5px 5px 5px 5px;
             background-color: white;
@@ -101,15 +99,27 @@
             border: 0;
             cursor: pointer;
         }
-
-
-
+        
+        .float {
+            position: fixed;
+            width: 150px;
+            height: 60px;
+            top: 40px;
+            right: 40px;
+            background-color: #03b1fc;
+            color: #FFF;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 3px 3px 3px #fc9403;
+        }
     </style>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="author" content="부종민, 고재성" />
-    <meta name="description" content="경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 가맹점을 카테고리 별로 알려드립니다." />
-    <meta name="keywords" content="경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기, 경기지역화폐, 경기화폐, 경기페이, 지역화폐, 평택사랑상품권,
+    <meta name="description" content="경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역
+            화폐 가맹점을 카테고리 별로 알려드립니다." />
+    <meta name="keywords" content="경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기, 경기지역화폐,
+            경기화폐, 경기페이, 지역화폐, 평택사랑상품권,
             가평사랑상품권, 과천화폐 과천토리, 안산사랑상품권 다온, 안양사랑페이, 포천사랑상품권, 의왕사랑상품권, 고양페이,
             광명사랑화폐, 광주사랑카드, 구리사랑상품권, 군포愛(애)머니, , 동두천사랑카드, 부천페이,
             수원페이, 안성사랑카드, 양주사랑카드, 양평통보, 여주사랑카드, 연천사랑상품권, 오산화폐 오색전, 용인와이페이,
@@ -119,7 +129,8 @@
             고양페이, 광명사랑화폐, 광주사랑카드, 구리사랑상품권, 군포愛(애)머니, Thank You Pay-N, 동두천사랑카드,
             부천페이, 수원페이, 안성사랑카드, 양주사랑카드, 양평통보, 여주사랑카드, 연천사랑상품권, 오산화폐 오색전, 용인와이페이,
             의정부사랑카드, 이천사랑지역화폐, 파주페이, 하머니, 행복화성지역화폐, 김포페이, 성남사랑상품권, 시루" />
-    <meta property="og:description" content="경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 가맹점을 카테고리 별로 알려드립니다." />
+    <meta property="og:description" content="경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 :
+            경기 지역 화폐 가맹점을 카테고리 별로 알려드립니다." />
     <meta property="og:image" content="./img/gpay_logo_white.png" />
     <meta property="og:url" content="https://g-pay.info/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0,
@@ -128,12 +139,7 @@
 
 <body>
     <div class="content">
-        경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 사용처를 카테고리 별로 알려드립니다.
-        경기 지역화폐 마트, 경기지역화폐 사용처,
-        경기지역화폐 가맹점 찾기, 경기 지역화폐 수원가맹점
-        경기 지역화폐 용인가맹점, 경기지역화폐 가맹점 조회
-        경기지역화폐 결제매장검색, 경기지역화폐 홈페이지
-        경기지역화폐 결제매장검색, 성남 지역 화폐 사용처
+        경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 사용처를 카테고리 별로 알려드립니다. 경기 지역화폐 마트, 경기지역화폐 사용처, 경기지역화폐 가맹점 찾기, 경기 지역화폐 수원가맹점 경기 지역화폐 용인가맹점, 경기지역화폐 가맹점 조회 경기지역화폐 결제매장검색, 경기지역화폐 홈페이지 경기지역화폐 결제매장검색, 성남 지역 화폐 사용처
     </div>
 
     <div id="mapwrap">
@@ -155,49 +161,50 @@
 
         <div class="category">
             <button class="category_item" id="total" onclick="getData('total')">
-                전체
-            </button>
+                    전체
+                </button>
             <button class="category_item" id="restaurant" onclick="getData('restaurant')">
-                음식
-            </button>
+                    음식
+                </button>
             <button class="category_item" id="oil" onclick="getData('oil')">
-                연료
-            </button>
+                    연료
+                </button>
             <button class="category_item" id="mart" onclick="getData('mart')">
-                마트
-            </button>
+                    마트
+                </button>
             <button class="category_item" id="car" onclick="getData('car')">
-                자동차
-            </button>
+                    자동차
+                </button>
             <button class="category_item" id="hotel" onclick="getData('hotel')">
-                숙박
-            </button>
+                    숙박
+                </button>
             <button class="category_item" id="medical" onclick="getData('medical')">
-                의료
-            </button>
+                    의료
+                </button>
             <button class="category_item" id="study" onclick="getData('study')">
-                학원
-            </button>
+                    학원
+                </button>
             <button class="category_item" id="food" onclick="getData('food')">
-                음료식품
-            </button>
+                    음료식품
+                </button>
             <button class="category_item" id="leisure" onclick="getData('leisure')">
-                레저
-            </button>
+                    레저
+                </button>
             <button class="category_item" id="beauty" onclick="getData('beauty')">
-                미용
-            </button>
+                    미용
+                </button>
             <button class="category_item" id="other" onclick="getData('other')">
-                미분류
-            </button>
+                    미분류
+                </button>
         </div>
 
     </div>
+    <a id="comment" href="#" class="float" style="z-index:999999;
+            text-decoration: none;">댓글</a>
     <!-- services와 clusterer, drawing 라이브러리 불러오기 -->
     <!--    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9b6b223d6ec0fc7622b1aaaa2e8ac1f6&libraries=services,clusterer,drawing"></script>-->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=cd7842b1f0e77ad39555e1b61bf917bf&libraries=services,clusterer,drawing"></script>
     <script src="./jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="./main.js"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164126135-1"></script>
     <script>
@@ -210,6 +217,7 @@
 
         gtag('config', 'UA-164126135-1');
     </script>
+    <script src="./main.js"></script>
 </body>
 
 </html>

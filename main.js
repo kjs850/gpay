@@ -4,7 +4,6 @@ var mapContainer = document.getElementById("map"), // 지도를 표시할 div
         level: 3, // 지도의 확대 레벨
     };
 
-
 var map = new kakao.maps.Map(mapContainer, mapOption);
 
 // 마커를 클릭하면 장소명을 표출할 인포윈도우 입니다
@@ -16,6 +15,8 @@ var infowindow = new kakao.maps.InfoWindow({
 var markers = []; // 마커를 담을 배열입니다
 var gpay_places = [];
 
+var commentEl = document.getElementById("comment");
+
 getCurrentLocation();
 
 var geocoder = new kakao.maps.services.Geocoder();
@@ -23,13 +24,11 @@ var geocoder = new kakao.maps.services.Geocoder();
 var filename = "";
 var category = "total";
 
-kakao.maps.event.addListener(map, 'center_changed', function() {
-
+kakao.maps.event.addListener(map, "center_changed", function() {
     var level = map.getLevel();
     var latlng = map.getCenter();
 
-    debouncedGetDisplayedPosition()
-
+    debouncedGetDisplayedPosition();
 });
 
 function getCurrentLocation() {
@@ -47,7 +46,6 @@ function getCurrentLocation() {
     }
 }
 
-
 function getDisplayedPosition() {
     var p = map.getBounds();
     var x = (p.ea + p.ja) / 2;
@@ -61,7 +59,7 @@ function getDisplayedPosition() {
             // if (x == undefined || x == undefined) return;
             let addr = x.address;
             if (Array.isArray(x)) {
-                addr = x[0].address
+                addr = x[0].address;
             }
             // if (addr.region_2depth_name.split(" ").length == 1) return;
             // console.log(addr)
@@ -69,23 +67,31 @@ function getDisplayedPosition() {
             const a =
                 addr.region_1depth_name +
                 "도" +
-                addr.region_2depth_name.replace(" ", "") + addr.region_3depth_name;
+                addr.region_2depth_name.replace(" ", "") +
+                addr.region_3depth_name;
 
-
-            console.log('filename', filename, a)
+            console.log("filename", filename, a);
             if (filename !== a) {
                 filename = a;
                 getData(category);
+
+                commentEl.innerHTML =
+                    addr.region_2depth_name +
+                    " " +
+                    addr.region_3depth_name +
+                    "<br/> 우리동네 댓글";
+
+                commentEl.href = "/comment.html?identifier=" + filename;
             }
         } catch (e) {
-            console.log(e)
+            console.log(e);
         }
     });
 }
 
-function debounce (f, delay) {
+function debounce(f, delay) {
     var timeout = null;
-    return function () {
+    return function() {
         clearTimeout(timeout);
         timeout = setTimeout(f, delay);
     };
@@ -135,36 +141,35 @@ function getData(param) {
 
 function savePlaces(item) {
     gpay_places.push({
-        position: new kakao.maps.LatLng(
-            item.lat,
-            item.long
-        ),
+        position: new kakao.maps.LatLng(item.lat, item.long),
         imageIndex: item.imageIndex,
-        items: item.items
+        items: item.items,
     });
 }
 
 function displayPlaces(ypay_place) {
+    console.log(ypay_place);
 
+    var markerImageSrc =
+        "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_theme.png";
 
-    console.log(ypay_place)
-
-    var markerImageSrc = "https://t1.daumcdn.net/localimg/localimages/07/2018/pc/img/marker_theme.png";
-
-    var imageSize = new kakao.maps.Size(30, 30)
+    var imageSize = new kakao.maps.Size(30, 30);
     var imageOptions = {
         spriteOrigin: new kakao.maps.Point(0, ypay_place.imageIndex * 40),
-        spriteSize: new kakao.maps.Size(30, 910)
+        spriteSize: new kakao.maps.Size(30, 910),
     };
 
-    var markerImage = new kakao.maps.MarkerImage(markerImageSrc, imageSize, imageOptions);
-    // var marker = createMarker(coffeePositions[i], markerImage);  
-
+    var markerImage = new kakao.maps.MarkerImage(
+        markerImageSrc,
+        imageSize,
+        imageOptions
+    );
+    // var marker = createMarker(coffeePositions[i], markerImage);
 
     // 마커를 생성하고 지도에 표시합니다
     var marker = new kakao.maps.Marker({
         position: ypay_place.position,
-        image: markerImage
+        image: markerImage,
     });
     marker.setMap(map);
     markers.push(marker);
@@ -173,40 +178,62 @@ function displayPlaces(ypay_place) {
     kakao.maps.event.addListener(marker, "click", function() {
         // 마커를 클릭하면 장소명이 인포윈도우에 표출됩니다
 
-        var height = 100
+        var height = 100;
         if (ypay_place.items.length == 2) {
-            height = 200
+            height = 200;
         } else if (ypay_place.items.length > 2) {
-            height = 300
+            height = 300;
         }
-        var html = '<div style="padding:5px;font-size:12px;overflow-y: scroll;height:' + height + 'px;">';
+        var html =
+            '<div style="padding:5px;font-size:12px;overflow-y: scroll;height:' +
+            height +
+            'px;">';
         for (var i = 0; i < ypay_place.items.length; i++) {
-            if (i > 0) html += "<hr>"
+            if (i > 0) html += "<hr>";
 
-            var item = ypay_place.items[i]
-            html += item.name + "<br>" +
-                "<a href=tel:" + item.tel + ">" + item.tel + "</a>" +
+            var item = ypay_place.items[i];
+            html +=
+                item.name +
+                "<br>" +
+                "<a href=tel:" +
+                item.tel +
+                ">" +
+                item.tel +
+                "</a>" +
                 "<br>" +
                 item.addr +
                 "<br>" +
-                item.indutype
+                item.indutype;
         }
 
-        html += "</div>"
+        html += "</div>";
 
         infowindow.setContent(html);
         infowindow.open(map, marker);
     });
 }
 
-
 function changeMenuColor() {
-    var menus = ["total", "restaurant", 'coffee', 'oil', 'mart', 'car', 'hotel', 'medical', 'study', 'food', 'leisure', 'beauty', 'other']
+    var menus = [
+        "total",
+        "restaurant",
+        "coffee",
+        "oil",
+        "mart",
+        "car",
+        "hotel",
+        "medical",
+        "study",
+        "food",
+        "leisure",
+        "beauty",
+        "other",
+    ];
     $.each(menus, function(i, menu) {
         if (category == menu) {
-            $('#' + menu).css('background', 'silver');
+            $("#" + menu).css("background", "silver");
         } else {
-            $('#' + menu).css('background', 'white');
+            $("#" + menu).css("background", "white");
         }
     });
 }

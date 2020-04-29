@@ -80,8 +80,7 @@ function getDisplayedPosition() {
                 commentEl.innerHTML =
                     addr.region_2depth_name +
                     " " +
-                    addr.region_3depth_name +
-                    "<br/> 우리동네 댓글";
+                    addr.region_3depth_name;
 
                 commentEl.href = "/comment.html?identifier=" + filename;
             }

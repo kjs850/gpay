@@ -16,16 +16,13 @@ async function main() {
 
             var report = {};
 
-            function getURLencodedAddr(x) {
+            function getURLencodedAddr(x, filePrefix) {
 
                 let arr = (x.addr || "").split(" ");
 
-                // if (arr.length == 1) {
-                //     arr = (x.REFINE_ROADNM_ADDR || "").split(" ");
-                // }
+
                 if (arr.length == 0) return undefined;
 
-                // if (!arr[0]) console.log(x);
                 let key = ''
                 if (arr[2] === undefined) return undefined;
 
@@ -39,6 +36,8 @@ async function main() {
                     // console.log(key)
                     return undefined;
                 }
+
+                if(key.startsWith(filePrefix) === false) return undefined;
 
                 report[key] = (report[key] || 1) + 1;
                 return key;
@@ -54,13 +53,6 @@ async function main() {
                     category = 'restaurant'
                     imageIndex = 4
                 }
-
-                // if (isContain(nm, ['커피', '카페', '기타음료식품'])) {
-                //     // if (isContain(nm, ['카페트']) === false) {
-                //     category = 'coffee'
-                //     imageIndex = 10
-                //         // }
-                // }
 
                 if (isContain(nm, ['주유', '연료'])) {
                     category = 'oil'
@@ -132,11 +124,23 @@ async function main() {
 
             const result = {};
 
+            let filePrefix = ''
             for (let i = 0; i < datas.length; i++) {
+
                 const d = convertData(datas[i]);
                 const category = d.category
-                const fileName = getURLencodedAddr(d);
+                const fileName = getURLencodedAddr(d, filePrefix);
+
                 if (fileName === undefined) continue;
+
+                if(filePrefix === '') {
+                    const addr = d.addr.split(" ")
+                    filePrefix = addr[0] + addr[1];
+                }
+                if(fileName.startsWith(filePrefix) === false) {
+                    continue;
+                };
+
 
                 const r = result[fileName] || {};
                 result[fileName] = {...r };
@@ -144,7 +148,12 @@ async function main() {
                 result[fileName][category] = [...c, d];
             }
 
+            //  파싱
+
+            // 저장
+
             for (let k in result) {
+
                 const r = result[k];
                 let total = []
                 for (let l in r) {

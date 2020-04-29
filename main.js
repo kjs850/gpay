@@ -66,11 +66,13 @@ function getDisplayedPosition() {
             // if (addr.region_2depth_name.split(" ").length == 1) return;
             // console.log(addr)
 
-            const a =
+            let a =
                 addr.region_1depth_name +
                 "도" +
                 addr.region_2depth_name.replace(" ", "") +
                 addr.region_3depth_name;
+
+            a = a.replace(/(\s*)/g, "");
 
             console.log("filename", filename, a);
             if (filename !== a) {

@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <meta charset="utf-8" />
     <title>경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 가맹점을 카테고리 별로 알려드립니다.</title>
@@ -145,6 +143,24 @@
             border-right-color: transparent;
             border-radius: 50%;
         }
+
+        .add-button {
+            bottom: 10px;
+            left: 10px;
+            display: block;
+            width: 30px;
+            text-align: center;
+            padding: 5px;
+            z-index: 10;
+            position: fixed;
+            font-size: 12px;
+            background-color: #fff;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(0, 0, 0, 0.2);
+            background-clip: padding-box;
+        }
+
         @keyframes rotate {
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
@@ -172,8 +188,10 @@
     <meta property="og:image" content="./img/gpay_logo_white.png" />
     <meta property="og:url" content="https://g-pay.info/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <link rel="shortcut icon" href="./img//favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./img//favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon.ico">
 </head>
 
 <body>
@@ -200,6 +218,14 @@
                         width: 27px;
                         height: 27px;" />
             </a>
+        </div>
+
+        <!-- 홈 추가 버튼 -->
+        <div id="add-button" class="add-button">
+            <img src="./img/add_home.png" style="
+                        margin: 0 auto 2px;
+                        width: 27px;
+                        height: 27px;" />
         </div>
 
         <div class="category">
@@ -255,6 +281,61 @@
     <script src="./jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-164126135-1"></script>
+    <script>
+        if('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('./sw.js')
+                .then(function() { console.log('Service Worker Registered'); });
+        }
+
+        // Code to handle install prompt on desktop
+
+        let deferredPrompt;
+        // let addBtn = document.querySelector('#add-button');
+        document.querySelector('#add-button').style.display = 'none';
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            console.log('beforeinstallprompt');
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+            // Stash the event so it can be triggered later.
+            deferredPrompt = e;
+            // Update UI to notify the user they can add to home screen
+            document.querySelector('#add-button').style.display = 'block';
+
+            document.querySelector('#add-button').addEventListener('click', (e) => {
+                // hide our user interface that shows our A2HS button
+                console.log('aaaaa')
+                document.querySelector('#add-button').style.display = 'none';
+                // Show the prompt
+                deferredPrompt.prompt();
+                // Wait for the user to respond to the prompt
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the A2HS prompt');
+                    } else {
+                        console.log('User dismissed the A2HS prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            });
+        });
+
+
+        window.addEventListener('appinstalled', (evt) => {
+            console.log('a2hs installed');
+        });
+
+        window.addEventListener('load', () => {
+            if (navigator.standalone) {
+                console.log('Launched: Installed (iOS)');
+            } else if (matchMedia('(display-mode: standalone)').matches) {
+                console.log('Launched: Installed');
+            } else {
+                console.log('Launched: Browser Tab');
+            }
+        });
+    </script>
     <script>
         Kakao.init("cd7842b1f0e77ad39555e1b61bf917bf");      // 사용할 앱의 JavaScript 키를 설정
 

@@ -1,6 +1,6 @@
 {
     "background_color": "blue",
-    "description": "Gpay-Map",
+    "description": "경기지역화폐 사용처 지도",
     "display": "standalone",
     "icons": [
         {
@@ -9,7 +9,7 @@
         "type": "image/png"
         }
     ],
-    "name": "Gpay-Map",
-    "short_name": "Gpay-Map",
+    "name": "경기화폐 사용처",
+    "short_name": "경기화폐 사용처",
     "start_url": "/index.html"
 }

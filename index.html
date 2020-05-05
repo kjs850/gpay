@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html>
-
 <head>
     <meta charset="utf-8" />
     <title>경기 화폐 가맹점 맵, 경기 지역 화폐 가맹점 찾기 : 경기 지역 화폐 가맹점을 카테고리 별로 알려드립니다.</title>
@@ -190,8 +188,10 @@
     <meta property="og:image" content="./img/gpay_logo_white.png" />
     <meta property="og:url" content="https://g-pay.info/" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-    <link rel="shortcut icon" href="./img//favicon.ico" type="image/x-icon">
-    <link rel="icon" href="./img//favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.webmanifest">
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/favicon.ico">
 </head>
 
 <body>
@@ -291,6 +291,7 @@
         // Code to handle install prompt on desktop
 
         let deferredPrompt;
+        // let addBtn = document.querySelector('#add-button');
         document.querySelector('#add-button').style.display = 'none';
 
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -304,6 +305,7 @@
 
             document.querySelector('#add-button').addEventListener('click', (e) => {
                 // hide our user interface that shows our A2HS button
+                console.log('aaaaa')
                 document.querySelector('#add-button').style.display = 'none';
                 // Show the prompt
                 deferredPrompt.prompt();
@@ -318,6 +320,7 @@
                 });
             });
         });
+
 
         window.addEventListener('appinstalled', (evt) => {
             console.log('a2hs installed');

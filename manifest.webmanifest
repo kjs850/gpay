@@ -1,0 +1,15 @@
+{
+    "background_color": "blue",
+    "description": "Gpay-Map",
+    "display": "standalone",
+    "icons": [
+        {
+        "src": "img/app_thumb_192x192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+        }
+    ],
+    "name": "Gpay-Map",
+    "short_name": "Gpay-Map",
+    "start_url": "/index.html"
+}

@@ -49,11 +49,9 @@ function getCurrentLocation() {
 }
 
 function getDisplayedPosition() {
-    var p = map.getBounds();
-    var x = (p.ea + p.ja) / 2;
-    var y = (p.la + p.ka) / 2;
+    var p = map.getCenter();
 
-    geocoder.coord2Address(x, y, (x) => {
+    geocoder.coord2Address(p.getLng(), p.getLat(), (x) => {
         try {
             // 축소를 계속하다보면 특정 레벨에서는 region_2depth_name에 구 정보를 보여주지 않아서 아래의 방어 로직 추가
             // "수원시 권선구" 이렇게 안나오고 "수원시" 이렇게 나옴.

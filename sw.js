@@ -3,8 +3,7 @@ self.addEventListener('install', function(e) {
         caches.open('video-store').then(function(cache) {
             return cache.addAll([
                 '/index.html',
-                '/jquery-3.4.1.min.js',
-                '/main.js'
+                '/jquery-3.4.1.min.js'
             ]);
         })
     );
